@@ -19,11 +19,9 @@ public class FelineTest {
         assertEquals(expected, actual);
     }
 
-
     @Test
     public void testGetKittens() {
         assertEquals(1, (new Feline()).getKittens());
-
     }
 
     @Test

@@ -44,10 +44,14 @@ public class LionTest {
         assertEquals(expected, actual);
     }
     @Test
-    public  void  doesHaveManeShouldReturnHasMane() throws Exception {
+    public  void  doesHaveManeShouldReturnTrue() throws Exception {
         Lion Lion = new Lion("Самец", feline);
-        boolean expected = true;
-        assertEquals(expected,Lion.doesHaveMane());
+        assertTrue(Lion.doesHaveMane());
+    }
+    @Test
+    public  void  doesHaveManeShouldReturnFalse() throws Exception {
+        Lion Lion = new Lion("Самка", feline);
+        assertFalse(Lion.doesHaveMane());
 
     }
 }
