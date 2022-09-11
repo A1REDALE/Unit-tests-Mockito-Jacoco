@@ -1,20 +1,17 @@
 package com.example;
 import java.util.List;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LionTest {
-
-
     @Mock
     Feline feline;
-
 
     @Test
     public void invalidLionSexShouldThrowException() throws Exception {
@@ -27,30 +24,32 @@ public class LionTest {
     }
 
     @Test
-    public void testGetFood() throws Exception {
-        List<String> actualFood = (new Lion("Самец", new Feline())).getFood();
-        assertEquals(3, actualFood.size());
-        assertEquals("Животные", actualFood.get(0));
-        assertEquals("Птицы", actualFood.get(1));
-        assertEquals("Рыба", actualFood.get(2));
-    }
-
-    @Test
-
-    public void testGetFood2() throws Exception {
-        (new Lion("Самец",feline)).getFood();
-    }
-
-    @Test
-    public void createMaleLion() throws Exception {
+    public void createLionWithManePositiveResult() throws Exception {
         Lion Lion = new Lion("Самец", feline);
         assertTrue(Lion.hasMane);
     }
 
     @Test
-    public void createFemaleLion() throws Exception {
+    public void createLionWithoutManePositiveResult() throws Exception {
         Lion Lion = new Lion("Самка", feline);
         assertFalse(Lion.hasMane);
     }
+    @Test
+    public void getFoodShouldReturnPredatorFood() throws Exception {
+        Lion Lion = new Lion("Самец", feline);
+        Lion lion1 = Mockito.spy(Lion);
+        List<String> expected = List.of("Животные", "Птицы", "Рыба");
+        Mockito.when(lion1.getFood("Хищник")).thenReturn(expected);
+        List<String> actual = lion1.getFood("Хищник");
+        assertEquals(expected, actual);
+    }
+    @Test
+    public  void  doesHaveManeShouldReturnHasMane() throws Exception {
+        Lion Lion = new Lion("Самец", feline);
+        boolean expected = true;
+        assertEquals(expected,Lion.doesHaveMane());
+
+    }
 }
+
 

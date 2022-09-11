@@ -6,26 +6,18 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-
 @RunWith(MockitoJUnitRunner.class)
 public class CatTest {
 
     @Test
-    public void testConstructor() {
-        assertEquals("Мяу", (new Cat(new Feline()).getSound()));
+    public void getSoundTest() {
+        Cat cat = new Cat(new Feline());
+        String expected = "Мяу";
+        assertEquals(expected, cat.getSound());
     }
 
     @Test
-    public void testGetFood() throws Exception {
-        List<String> actualFood = (new Cat(new Feline())).getFood();
-        assertEquals(3, actualFood.size());
-        assertEquals("Животные", actualFood.get(0));
-        assertEquals("Птицы", actualFood.get(1));
-        assertEquals("Рыба", actualFood.get(2));
-    }
-    @Test
-    public void testCatMethodGetFoodException() throws Exception{
-
+    public void GetFoodWithInvalidAnimalKindShouldThrowException() throws Exception{
         try {
             Cat cat = new Cat(new Feline());
             Mockito.when(new Feline().getFood("Барсик")).thenThrow(new Exception("Неизвестный вид животного, используйте значение Травоядное или Хищник"));
@@ -35,6 +27,15 @@ public class CatTest {
             assertEquals("Неизвестный вид животного, используйте значение Травоядное или Хищник", e.getMessage());
         }
     }
+    @Test
+    public void getFoodShouldReturnPredatorFood() throws Exception {
+        Cat cat = new Cat(new Feline());
+        Cat cat1 = Mockito.spy(cat);
+        List<String> expected = List.of("Животные", "Птицы", "Рыба");
+        Mockito.when(cat1.getFood()).thenReturn(expected);
+        List<String> actual = cat1.getFood();
+        assertEquals(expected, actual);
 
+    }
 }
 
