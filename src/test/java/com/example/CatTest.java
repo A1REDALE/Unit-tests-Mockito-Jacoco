@@ -3,23 +3,28 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CatTest {
 
+    @Mock
+    Feline feline;
+
     @Test
     public void getSoundTest() {
-        Cat cat = new Cat(new Feline());
+        Cat cat = new Cat(feline);
         String expected = "Мяу";
         assertEquals(expected, cat.getSound());
     }
 
     @Test
-    public void GetFoodWithInvalidAnimalKindShouldThrowException() throws Exception{
+    public void getFoodWithInvalidAnimalKindShouldThrowException() throws Exception{
         try {
-            Cat cat = new Cat(new Feline());
+            Cat cat = new Cat(feline);
             Mockito.when(new Feline().getFood("Барсик")).thenThrow(new Exception("Неизвестный вид животного, используйте значение Травоядное или Хищник"));
             cat.getFood();
         }
@@ -29,11 +34,10 @@ public class CatTest {
     }
     @Test
     public void getFoodShouldReturnPredatorFood() throws Exception {
-        Cat cat = new Cat(new Feline());
-        Cat cat1 = Mockito.spy(cat);
+        Cat cat = new Cat(feline);
         List<String> expected = List.of("Животные", "Птицы", "Рыба");
-        Mockito.when(cat1.getFood()).thenReturn(expected);
-        List<String> actual = cat1.getFood();
+        Mockito.when(cat.predator.eatMeat()).thenReturn(expected);
+        List<String> actual = cat.getFood();
         assertEquals(expected, actual);
 
     }

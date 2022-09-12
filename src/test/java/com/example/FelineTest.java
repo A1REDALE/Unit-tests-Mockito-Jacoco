@@ -20,17 +20,17 @@ public class FelineTest {
     }
 
     @Test
-    public void testGetKittens() {
+    public void getKittensTest() {
         assertEquals(1, (new Feline()).getKittens());
     }
 
     @Test
-    public void testGetKittens1() {
+    public void getKittensTestWithSpecifiedAmount() {
         assertEquals(3, (new Feline()).getKittens(3));
     }
 
     @Test
-    public void testConstructor() {
+    public void getFamilyTest() {
         assertEquals("Кошачьи", (new Feline()).getFamily());
     }
 }

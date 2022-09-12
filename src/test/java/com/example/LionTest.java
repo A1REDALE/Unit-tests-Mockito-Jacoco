@@ -37,10 +37,9 @@ public class LionTest {
     @Test
     public void getFoodShouldReturnPredatorFood() throws Exception {
         Lion Lion = new Lion("Самец", feline);
-        Lion lion1 = Mockito.spy(Lion);
         List<String> expected = List.of("Животные", "Птицы", "Рыба");
-        Mockito.when(lion1.getFood("Хищник")).thenReturn(expected);
-        List<String> actual = lion1.getFood("Хищник");
+        Mockito.lenient().when(feline.getFood("Хищник")).thenReturn(expected);
+        List<String> actual = Lion.getFood("Хищник");
         assertEquals(expected, actual);
     }
     @Test
@@ -53,6 +52,13 @@ public class LionTest {
         Lion Lion = new Lion("Самка", feline);
         assertFalse(Lion.doesHaveMane());
 
+    }
+    @Test
+    public void getKittensTest() throws Exception {
+        Lion Lion = new Lion("Самка", feline);
+        Mockito.when(feline.getKittens()).thenReturn(1);
+        int actual = Lion.getKittens();
+        assertEquals(1, actual);
     }
 }
 
