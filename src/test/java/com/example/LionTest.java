@@ -25,40 +25,35 @@ public class LionTest {
 
     @Test
     public void createLionWithManePositiveResult() throws Exception {
-        Lion Lion = new Lion("Самец", feline);
-        assertTrue(Lion.hasMane);
+        Lion lion = new Lion("Самец", feline);
+        assertTrue(lion.hasMane);
     }
 
     @Test
     public void createLionWithoutManePositiveResult() throws Exception {
-        Lion Lion = new Lion("Самка", feline);
-        assertFalse(Lion.hasMane);
+        Lion lion = new Lion("Самка", feline);
+        assertFalse(lion.hasMane);
     }
+
     @Test
     public void getFoodShouldReturnPredatorFood() throws Exception {
-        Lion Lion = new Lion("Самец", feline);
+        Lion lion = new Lion("Самец", feline);
         List<String> expected = List.of("Животные", "Птицы", "Рыба");
-        Mockito.lenient().when(feline.getFood("Хищник")).thenReturn(expected);
-        List<String> actual = Lion.getFood("Хищник");
+        Mockito.when(feline.getFood("Хищник")).thenReturn(expected);
+        List<String> actual = lion.getFood();
         assertEquals(expected, actual);
     }
-    @Test
-    public  void  doesHaveManeShouldReturnTrue() throws Exception {
-        Lion Lion = new Lion("Самец", feline);
-        assertTrue(Lion.doesHaveMane());
-    }
-    @Test
-    public  void  doesHaveManeShouldReturnFalse() throws Exception {
-        Lion Lion = new Lion("Самка", feline);
-        assertFalse(Lion.doesHaveMane());
 
-    }
     @Test
-    public void getKittensTest() throws Exception {
-        Lion Lion = new Lion("Самка", feline);
-        Mockito.when(feline.getKittens()).thenReturn(1);
-        int actual = Lion.getKittens();
-        assertEquals(1, actual);
+    public void doesHaveManeShouldReturnTrue() throws Exception {
+        Lion lion = new Lion("Самец", feline);
+        assertTrue(lion.doesHaveMane());
+    }
+
+    @Test
+    public void doesHaveManeShouldReturnFalse() throws Exception {
+        Lion lion = new Lion("Самка", feline);
+        assertFalse(lion.doesHaveMane());
     }
 }
 
