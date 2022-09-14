@@ -8,14 +8,13 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FelineTest {
-
     @Test
     public void eatMeatShouldReturnPredatorFood() throws Exception {
-        Feline feline = new Feline();
-        Feline feline1 = Mockito.spy(feline);
+
+        Feline felineSpy = Mockito.spy(new Feline());
         List<String> expected = List.of("Животные", "Птицы", "Рыба");
-        Mockito.when(feline1.getFood("Хищник")).thenReturn(expected);
-        List<String> actual = feline1.eatMeat();
+        Mockito.when(felineSpy.getFood("Хищник")).thenReturn(expected);
+        List<String> actual = felineSpy.eatMeat();
         assertEquals(expected, actual);
     }
 
